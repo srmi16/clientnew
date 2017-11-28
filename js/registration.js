@@ -1,6 +1,6 @@
 $(document).ready(() => {
 
-    SDK.User.loadNav();
+
 
     $("#sign-button").click(() => {
 

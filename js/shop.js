@@ -1,6 +1,8 @@
 $(document).ready(() => {
 
   SDK.User.loadNav();
+
+
   const $bookList = $("#book-list");
 
   SDK.Book.findAll((err, books) => {

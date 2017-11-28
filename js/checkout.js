@@ -3,6 +3,7 @@ $(document).ready(() => {
   SDK.User.loadNav();
 
 
+
   const $modalTbody = $("#basket-tbody");
   const $checkoutActions = $("#checkout-actions");
   const $nothingInBasketContainer = $("#nothing-in-basket-container");

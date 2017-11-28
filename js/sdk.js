@@ -25,80 +25,24 @@ const SDK = {
     });
 
   },
-  Book: {
-    addToBasket: (book) => {
-      let basket = SDK.Storage.load("basket");
 
-      //Has anything been added to the basket before?
-      if (!basket) {
-        return SDK.Storage.persist("basket", [{
-          count: 1,
-          book: book
-        }]);
-      }
-
-      //Does the book already exist?
-      let foundBook = basket.find(b => b.book.id === book.id);
-      if (foundBook) {
-        let i = basket.indexOf(foundBook);
-        basket[i].count++;
-      } else {
-        basket.push({
-          count: 1,
-          book: book
-        });
-      }
-
-      SDK.Storage.persist("basket", basket);
-    },
-    findAll: (cb) => {
-      SDK.request({
-        method: "GET",
-        url: "/books",
-        headers: {
-          filter: {
-            include: ["authors"]
-          }
-        }
-      }, cb);
-    },
-    create: (data, cb) => {
-      SDK.request({
-        method: "POST",
-        url: "/books",
-        data: data,
-        headers: {authorization: SDK.Storage.load("tokenId")}
-      }, cb);
-    }
-  },
-  Author: {
-    findAll: (cb) => {
-      SDK.request({method: "GET", url: "/authors"}, cb);
-    }
-  },
-  Order: {
-    create: (data, cb) => {
-      SDK.request({
-        method: "POST",
-        url: "/orders",
-        data: data,
-        headers: {authorization: SDK.Storage.load("tokenId")}
-      }, cb);
-    },
-    findMine: (cb) => {
-      SDK.request({
-        method: "GET",
-        url: "/orders/" + SDK.User.current().id + "/allorders",
-        headers: {
-          authorization: SDK.Storage.load("tokenId")
-        }
-      }, cb);
-    }
-  },
   User: {
     findAll: (cb) => {
-      SDK.request({method: "GET", url: "/staffs"}, cb);
+      SDK.request({method: "GET", url: "/user"}, cb);
     },
+
+     getUsers: (cb) => {
+      SDK.request({
+          method: "GET",
+          url: "/user/{id}",
+
+      }, (err, user) => {
+        if (err) return cb(err);
+        SDK.Storage.persist("User", user);
+        cb(null, user);
+      });
+
+     },
     current: () => {
       return SDK.Storage.load("user");
     },
@@ -156,8 +100,7 @@ const SDK = {
         const currentUser = SDK.User.current();
         if (currentUser) {
           $(".navbar-right").html(`
-            <li><a href="my-page.html">Your orders</a></li>
-            <li><a href="#" id="logout-link">Logout</a></li>
+             <li><a href="#" id="logout-link">Logout</a></li>
           `);
         } else {
           $(".navbar-right").html(`
@@ -169,8 +112,12 @@ const SDK = {
       });
     }
   },
+
+
+
+
   Storage: {
-    prefix: "BookStoreSDK",
+    prefix: "FMLQuizSDK",
     persist: (key, value) => {
       window.localStorage.setItem(SDK.Storage.prefix + key, (typeof value === 'object') ? JSON.stringify(value) : value)
     },
