@@ -9,7 +9,7 @@ $(document).ready(() => {
   `);
 
   $(".img-container").html(`
-    <img src="${currentUser.avata rUrl}" height="150"/>
+    <img src="${currentUser.avatarUrl}" height="150"/>
   `);
 
   $(".profile-info").html(`
