@@ -44,12 +44,21 @@ const SDK = {
 
      },
     current: () => {
-      return SDK.Storage.load("user");
+      return {
+            userId: SDK.Storage.load("userId"),
+            username: SDK.Storage.load("userName"),
+            firsName: SDK.Storage.load("firstName"),
+            lastName: SDK.Storage.load("lastName"),
+            type: SDK.Storage.load("type"),
+    }
     },
     logOut: () => {
 
       SDK.Storage.remove("userId");
-      SDK.Storage.remove("user");
+      SDK.Storage.remove("userName");
+      SDK.Storage.remove("firstName");
+      SDK.Storage.remove("lastName");
+      SDK.Storage.remove("type");
       window.location.href = "login.html";
     },
     login: (username, password, cb) => {
@@ -65,9 +74,12 @@ const SDK = {
         //On login-error
         if (err) return cb(err);
 
-        console.log(data);
+        data = JSON.parse(data);
+        SDK.Storage.persist("userId", data.userId);
         SDK.Storage.persist("username", data.username);
-        SDK.Storage.persist("password", data.password);
+        SDK.Storage.persist("firstName", data.firstName);
+        SDK.Storage.persist("lastName", data.lastName);
+        SDK.Storage.persist("type", data.type);
 
         cb(null, data);
 
@@ -98,15 +110,28 @@ const SDK = {
     loadNav: (cb) => {
       $("#nav-container").load("nav.html", () => {
         const currentUser = SDK.User.current();
-        if (currentUser) {
-          $(".navbar-right").html(`
-             <li><a href="#" id="logout-link">Logout</a></li>
+        if (currentUser.userId !== null && currentUser.type == 1) {
+          $(".navbar-nav").html(`
+              <li><a href="index.html">Hjem</a></li>
+              <li><a href="profil.html">Profil</a></li>
+              <li><a href="Quiz.html">Quizzes</a></li>   
+             
+          `);
+        } else if (currentUser.userId !== null) {
+          $(".navbar-nav").html(`
+             <li><a href="index.html">Hjem</a></li>
+             <li><a href="profil.html">Profil</a></li>
+             <li><a href="Quiz.html">Quizzes</a></li>
+             <li><a href="#">create quiz</a> </li>
+            
           `);
         } else {
-          $(".navbar-right").html(`
-            <li><a href="login.html">Log out<span class="sr-only">(current)</span></a></li>
+
+            $(".navbar-right").html(`
+             <li><a href="login.html">Log out<span class="sr-only">(current)</span></a></li>
           `);
         }
+
         $("#logout-link").click(() => SDK.User.logOut());
         cb && cb();
       });
