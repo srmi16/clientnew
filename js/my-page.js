@@ -9,17 +9,19 @@ $(document).ready(() => {
   `);
 
   $(".img-container").html(`
-    <img src="${currentUser.avatarUrl}" height="150"/>
+    <img src="${currentUser.avata rUrl}" height="150"/>
   `);
 
   $(".profile-info").html(`
     <dl>
         <dt>Name</dt>
         <dd>${currentUser.firstName} ${currentUser.lastName}</dd>
-        <dt>Email</dt>
+        <dt>Username</dt>
         <dd>${currentUser.username}</dd>
         <dt>ID</dt>
-        <dd>${currentUser.id}</dd>
+        <dd>${currentUser.userId}</dd>
+        <dt>Type</dt>
+        <dd>${currentUser.type}</dd>
      </dl>
   `);
 

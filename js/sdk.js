@@ -46,8 +46,8 @@ const SDK = {
     current: () => {
       return {
             userId: SDK.Storage.load("userId"),
-            username: SDK.Storage.load("userName"),
-            firsName: SDK.Storage.load("firstName"),
+            username: SDK.Storage.load("username"),
+            firstName: SDK.Storage.load("firstName"),
             lastName: SDK.Storage.load("lastName"),
             type: SDK.Storage.load("type"),
     }
@@ -55,7 +55,7 @@ const SDK = {
     logOut: () => {
 
       SDK.Storage.remove("userId");
-      SDK.Storage.remove("userName");
+      SDK.Storage.remove("username");
       SDK.Storage.remove("firstName");
       SDK.Storage.remove("lastName");
       SDK.Storage.remove("type");
