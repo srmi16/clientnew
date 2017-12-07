@@ -31,6 +31,18 @@ const SDK = {
     findAll: (cb) => {
       SDK.request({method: "GET", url: "/user"}, cb);
     },
+
+      getUsers: (cb) => {
+      SDK.request({
+          method: "GET",
+          url: "/user/{id}",
+      }, (err, user) => {
+        if (err) return cb(err);
+        SDK.Storage.persist("User", user);
+        cb(null, user);
+      });
+
+      },
     current: () => {
       return {
         userId: SDK.Storage.load("userId"),
@@ -100,18 +112,18 @@ const SDK = {
               const currentUser = SDK.User.current();
               if (currentUser.userId !== null && currentUser.type == 1) {
                   $(".navbar-nav").html(`
-              <li><a href="index.html">Hjem</a></li>
-              <li><a href="profil.html">Profil</a></li>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="profile.html">Profile</a></li>
               <li><a href="Quiz.html">Quizzes</a></li>   
              
           `);
               } else if (currentUser.userId !== null) {
                   $(".navbar-nav").html(`
-             <li><a href="index.html">Hjem</a></li>
-             <li><a href="profil.html">Profil</a></li>
+             <li><a href="index.html">Home</a></li>
+             <li><a href="profil.html">Profile</a></li>
              <li><a href="Quiz.html">Quizzes</a></li>
              <li><a href="#">Create quiz</a></li>
-             <li><a href="#">All users</a></li>
+             <li><a href="users.html">All users</a></li>
             
           `);
               } else {
