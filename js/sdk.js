@@ -131,6 +131,18 @@ const SDK = {
           });
       },
 
+      delete: (id, cb) => {
+        SDK.request({
+            method: "DELETE",
+            url: "/user/" + id,
+        },
+            (err) => {
+            if (err) return cb(err);
+
+            cb(null);
+            });
+      },
+
       loadNav: (cb) => {
           $("#nav-container").load("nav.html", () => {
               const currentUser = SDK.User.current();
