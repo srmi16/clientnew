@@ -157,9 +157,10 @@ const SDK = {
                   $(".navbar-nav").html(`
              <li><a href="index.html">Home</a></li>
              <li><a href="profil.html">Profile</a></li>
+             <li><a href="users.html">Users</a></li>
              <li><a href="Quiz.html">Quizzes</a></li>
              <li><a href="#">Create quiz</a></li>
-             <li><a href="users.html">All users</a></li>
+            
             
           `);
               } else {
