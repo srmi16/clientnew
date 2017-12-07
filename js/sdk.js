@@ -103,17 +103,41 @@ const SDK = {
           if (err) return cb(err);
 
 
-
           cb(null, data);
+
+
       });
     },
+      createAdmin: (firstName, lastName, regUsername, regPassword, cb) => {
+      SDK.request({
+          data: {
+              firstName: firstName,
+              lastName: lastName,
+              username: regUsername,
+              password: regPassword,
+              type: 2
+              },
+              url: "/user",
+              method: "POST"
+          }, (err, data) => {
+
+              //on create-user - error
+              if (err) return cb(err);
+
+
+              cb(null, data);
+
+
+          });
+      },
+
       loadNav: (cb) => {
           $("#nav-container").load("nav.html", () => {
               const currentUser = SDK.User.current();
               if (currentUser.userId !== null && currentUser.type == 1) {
                   $(".navbar-nav").html(`
               <li><a href="index.html">Home</a></li>
-              <li><a href="profile.html">Profile</a></li>
+              <li><a href="profil.html">Profile</a></li>
               <li><a href="Quiz.html">Quizzes</a></li>   
              
           `);
