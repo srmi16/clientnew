@@ -53,7 +53,7 @@ $(document).ready(() => {
 });
 
 
-$("#deleteUser-button").click(() => {
+    $("#deleteUser-button").click(() => {
 
     const deleteUserID = $("#inputDeleteUser").val();
 
