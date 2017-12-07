@@ -25,87 +25,28 @@ const SDK = {
     });
 
   },
-  Book: {
-    addToBasket: (book) => {
-      let basket = SDK.Storage.load("basket");
 
-      //Has anything been added to the basket before?
-      if (!basket) {
-        return SDK.Storage.persist("basket", [{
-          count: 1,
-          book: book
-        }]);
-      }
 
-      //Does the book already exist?
-      let foundBook = basket.find(b => b.book.id === book.id);
-      if (foundBook) {
-        let i = basket.indexOf(foundBook);
-        basket[i].count++;
-      } else {
-        basket.push({
-          count: 1,
-          book: book
-        });
-      }
-
-      SDK.Storage.persist("basket", basket);
-    },
-    findAll: (cb) => {
-      SDK.request({
-        method: "GET",
-        url: "/books",
-        headers: {
-          filter: {
-            include: ["authors"]
-          }
-        }
-      }, cb);
-    },
-    create: (data, cb) => {
-      SDK.request({
-        method: "POST",
-        url: "/books",
-        data: data,
-        headers: {authorization: SDK.Storage.load("tokenId")}
-      }, cb);
-    }
-  },
-  Author: {
-    findAll: (cb) => {
-      SDK.request({method: "GET", url: "/authors"}, cb);
-    }
-  },
-  Order: {
-    create: (data, cb) => {
-      SDK.request({
-        method: "POST",
-        url: "/orders",
-        data: data,
-        headers: {authorization: SDK.Storage.load("tokenId")}
-      }, cb);
-    },
-    findMine: (cb) => {
-      SDK.request({
-        method: "GET",
-        url: "/orders/" + SDK.User.current().id + "/allorders",
-        headers: {
-          authorization: SDK.Storage.load("tokenId")
-        }
-      }, cb);
-    }
-  },
   User: {
     findAll: (cb) => {
-      SDK.request({method: "GET", url: "/staffs"}, cb);
+      SDK.request({method: "GET", url: "/user"}, cb);
     },
     current: () => {
-      return SDK.Storage.load("user");
+      return {
+        userId: SDK.Storage.load("userId"),
+        username: SDK.Storage.load("username"),
+        firstName: SDK.Storage.load("firstName"),
+        lastName: SDK.Storage.load("lastName"),
+        type: SDK.Storage.load("type"),
+    }
     },
     logOut: () => {
 
       SDK.Storage.remove("userId");
-      SDK.Storage.remove("user");
+      SDK.Storage.remove("username");
+      SDK.Storage.remove("firstName");
+      SDK.Storage.remove("lastName");
+      SDK.Storage.remove("type");
       window.location.href = "login.html";
     },
     login: (username, password, cb) => {
@@ -121,9 +62,12 @@ const SDK = {
         //On login-error
         if (err) return cb(err);
 
-        console.log(data);
+        data = JSON.parse(data);
+        SDK.Storage.persist("userId", data.userId);
         SDK.Storage.persist("username", data.username);
-        SDK.Storage.persist("password", data.password);
+        SDK.Storage.persist("firstName", data.firstName);
+        SDK.Storage.persist("lastName", data.lastName);
+        SDK.Storage.persist("type", data.type);
 
         cb(null, data);
 
@@ -151,23 +95,36 @@ const SDK = {
           cb(null, data);
       });
     },
-    loadNav: (cb) => {
-      $("#nav-container").load("nav.html", () => {
-        const currentUser = SDK.User.current();
-        if (currentUser) {
-          $(".navbar-right").html(`
-            <li><a href="my-page.html">Your orders</a></li>
-            <li><a href="#" id="logout-link">Logout</a></li>
+      loadNav: (cb) => {
+          $("#nav-container").load("nav.html", () => {
+              const currentUser = SDK.User.current();
+              if (currentUser.userId !== null && currentUser.type == 1) {
+                  $(".navbar-nav").html(`
+              <li><a href="index.html">Hjem</a></li>
+              <li><a href="profil.html">Profil</a></li>
+              <li><a href="Quiz.html">Quizzes</a></li>   
+             
           `);
-        } else {
-          $(".navbar-right").html(`
-            <li><a href="login.html">Log out<span class="sr-only">(current)</span></a></li>
+              } else if (currentUser.userId !== null) {
+                  $(".navbar-nav").html(`
+             <li><a href="index.html">Hjem</a></li>
+             <li><a href="profil.html">Profil</a></li>
+             <li><a href="Quiz.html">Quizzes</a></li>
+             <li><a href="#">Create quiz</a></li>
+             <li><a href="#">All users</a></li>
+            
           `);
-        }
-        $("#logout-link").click(() => SDK.User.logOut());
-        cb && cb();
-      });
-    }
+              } else {
+
+                  $(".navbar-right").html(`
+             <li><a href="login.html">Log out<span class="sr-only">(current)</span></a></li>
+          `);
+              }
+
+              $("#logout-link").click(() => SDK.User.logOut());
+              cb && cb();
+          });
+      }
   },
   Storage: {
     prefix: "BookStoreSDK",
