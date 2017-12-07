@@ -4,6 +4,7 @@ $(document).ready(() => {
   const currentUser = SDK.User.current();
 
 
+
   $(".page-header").html(`
     <h1>Hi, ${currentUser.firstName} ${currentUser.lastName}</h1>
   `);
