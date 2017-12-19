@@ -32,7 +32,7 @@ const SDK = {
 
         SDK.request({
         method: "GET",
-        url: "/course"
+        url: "/courses"
     }, (err, data) => {
 
         if (err) return cb(err);
@@ -112,6 +112,18 @@ const SDK = {
           })
       }
   },
+
+    getQuiz: (courseId, cb) => {
+        SDK.request ({
+            url: "/quiz/" + courseId,
+            method: "GET"
+        }, (err, data) => {
+            if (err) return cb(err);
+            cb(null, data);
+
+
+        });
+    },
 
   findAll: (id, cb) => {
       SDK.request({
@@ -264,7 +276,7 @@ const SDK = {
                   $(".navbar-nav").html(`
               <li><a href="index.html">Home</a></li>
               <li><a href="profil.html">Profile</a></li>
-              <li><a href="PlayQuiz.html">Quizzes</a></li>   
+              <li><a href="PlayQuiz.html">Play</a></li>   
              
           `);
               } else if (currentUser.userId !== null) {
@@ -272,7 +284,7 @@ const SDK = {
              <li><a href="index.html">Home</a></li>
              <li><a href="profil.html">Profile</a></li>
              <li><a href="users.html">Users</a></li>
-             <li><a href="PlayQuiz.html">Quizzes</a></li>
+             <li><a href="PlayQuiz.html">Play</a></li>
              <li><a href="#">Create quiz</a></li>
             
             

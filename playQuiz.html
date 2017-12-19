@@ -11,22 +11,47 @@
 <body>
 
 <div class="container">
+
     <div class="row" id="nav-container"></div>
-    <div class="jumbotron">
-        <div class="row">
-            <div class="col-lg-12">
+
+    <div class="row">
+        <div class="col-lg-12">
+
+            <div class="jumbotron">
                 <div class="page-header">
-                    <h1> Play Quiz</h1>
+                    <h1>Choose course</h1>
                     <div id="load-test"></div>
 
                     <div>
-                        <div></div>
+                        <div class="form-group">
+                            <label class="control-label" for="PlayQuizzes"></label>
+                            <select id="PlayQuizzes" class="form-control"> Choose a Quiz"</select></div>
+
+                        <div id="quizTable" class="container">
+                            <h2>Choose quiz to play</h2>
+                            <table class="table table-bordered"></table>
+                            <thead>
+                            <tr>
+                                <th>Quiz</th>
+                            </tr>
+                            <thead>
+
+                        </thead>
+                        </table>
 
 
 
+                            </div>
+
+                    </div>
 
 
 
+</div>
+            </div>
+        </div>
+    </div>
+</div>
 
                     <footer class="footer">
                         <div class="container">
@@ -37,10 +62,11 @@
                     <script src="lib/js/jquery-3.2.1.js"></script>
                     <script src="lib/js/bootstrap.js"></script>
                     <script src="js/sdk.js"></script>
-                    <script src="js/my-page.js"></script>
+                    <script src="js/playQuiz.js"></script>
+<script>
+    SDK.User.loadNav();
+</script>
 
 </body>
 </html>
 
-</body>
-</html>
