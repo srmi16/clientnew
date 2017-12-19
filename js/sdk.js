@@ -1,30 +1,144 @@
 const SDK = {
-  serverURL: "http://localhost:8080/api",
-  request: (options, cb) => {
+    serverURL: "http://localhost:8080/api",
+    request: (options, cb) => {
 
-    let headers = {};
-    if (options.headers) {
-      Object.keys(options.headers).forEach((h) => {
-        headers[h] = (typeof options.headers[h] === 'object') ? JSON.stringify(options.headers[h]) : options.headers[h];
-      });
-    }
+        let headers = {};
+        if (options.headers) {
+            Object.keys(options.headers).forEach((h) => {
+                headers[h] = (typeof options.headers[h] === 'object') ? JSON.stringify(options.headers[h]) : options.headers[h];
+            });
+        }
 
-    $.ajax({
-      url: SDK.serverURL + options.url,
-      method: options.method,
-      headers: headers,
-      contentType: "application/json",
-      dataType: "json",
-      data: JSON.stringify(options.data),
-      success: (data, status, xhr) => {
-        cb(null, data, status, xhr);
-      },
-      error: (xhr, status, errorThrown) => {
-        cb({xhr: xhr, status: status, error: errorThrown});
-      }
+        $.ajax({
+            url: SDK.serverURL + options.url,
+            method: options.method,
+            headers: headers,
+            contentType: "application/json",
+            dataType: "json",
+            data: JSON.stringify(options.data),
+            success: (data, status, xhr) => {
+                cb(null, data, status, xhr);
+            },
+            error: (xhr, status, errorThrown) => {
+                cb({xhr: xhr, status: status, error: errorThrown});
+            }
+        });
+
+    },
+
+    Courses: {
+
+        getCourses: (cb) => {
+
+        SDK.request({
+        method: "GET",
+        url: "/course"
+    }, (err, data) => {
+
+        if (err) return cb(err);
+
+        data = JSON.parse(data);
+
+        cb(null, data);
     });
+},
 
+},
+
+    Question: {
+        create: (question, cb) => {
+            SDK.request({
+                method: "POST",
+                url: "/question",
+                data: {
+                    quizId: question.quizId,
+                    questionTitle: question.questionTitle
+
+                },
+
+            },
+                (err, data) => {
+
+                if (err) return cb(err);
+                data = JSON.parse(data);
+                SDK.Storage.persist("questionId", data.questionId);
+
+                cb(null, data);
+            });
+        },
+    },
+
+    Choice: {
+        create: (choice, cb) => {
+            SDK.request({
+                method: "POST",
+                url: "/choice",
+                data: {
+                    questionId: choice.questionId,
+                    choiceTitle: choice.choiceTitle,
+                    answer: choice.answer
+                },
+            },
+                (err, data) => {
+
+                if (err) return cb (err);
+
+                cb(null, data)
+            });
+        },
+    },
+
+
+  Quiz: {
+      create: (quiz, cb) => {
+          SDK.request({
+              method: "POST",
+              url: "/quiz",
+              data: {
+                  courseId: quiz.courseId,
+                  quizTitle: quiz.quizTitle
+              },
+          },
+
+  (err, data) => {
+
+              if(err) return cb(err);
+              data = JSON.parse(data);
+              SDK.Storage.persist("courseId", data.courseId);
+              SDK.Storage.persist("quizTitle", data.quizTitle);
+              SDK.Storage.persist("quizId", data.quizId);
+
+              cb(null, data);
+          })
+      }
   },
+
+  findAll: (id, cb) => {
+      SDK.request({
+          method: "GET",
+          url: ("/quiz/" + id),
+      },
+          (err, data) => {
+
+          if (err) return cb (err);
+
+          data = JSON.parse(data);
+
+          cb(null, data);
+      });
+  }  ,
+
+   delete: (id, cb) => {
+      SDK.request({
+          method: "DELETE",
+          url: "/quiz/" + id
+      },
+          (err, data) => {
+          if (err) return cb(err);
+
+          cb(null);
+      })
+   },
 
 
   User: {
@@ -150,7 +264,7 @@ const SDK = {
                   $(".navbar-nav").html(`
               <li><a href="index.html">Home</a></li>
               <li><a href="profil.html">Profile</a></li>
-              <li><a href="Quiz.html">Quizzes</a></li>   
+              <li><a href="PlayQuiz.html">Quizzes</a></li>   
              
           `);
               } else if (currentUser.userId !== null) {
@@ -158,7 +272,7 @@ const SDK = {
              <li><a href="index.html">Home</a></li>
              <li><a href="profil.html">Profile</a></li>
              <li><a href="users.html">Users</a></li>
-             <li><a href="Quiz.html">Quizzes</a></li>
+             <li><a href="PlayQuiz.html">Quizzes</a></li>
              <li><a href="#">Create quiz</a></li>
             
             
