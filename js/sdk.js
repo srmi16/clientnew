@@ -255,8 +255,8 @@ const SDK = {
              <li><a href="index.html">Home</a></li>
              <li><a href="profil.html">Profile</a></li>
              <li><a href="users.html">Users</a></li>
-             <li><a href="PlayQuiz.html">Play</a></li>
              <li><a href="Quizzes.html">Quizzes</a></li>
+             <li><a href="PlayQuiz.html">Play</a></li>
             
             
           `);
