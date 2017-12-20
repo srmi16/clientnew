@@ -6,11 +6,11 @@ $(document).ready(() => {
 
         if (err) {
             console.log("something went wrong")
-        }else {
+        } else {
             const select = document.getElementById("PlayQuizzes");
 
 
-             //Drop-down stackowerflow
+            //Drop-down stackowerflow
             const el = document.createElement("option");
             el.textContent = "Choose your course";
             el.value = -1;
@@ -27,8 +27,9 @@ $(document).ready(() => {
         }
     });
 
-  $('#PlayQuizzes').on('change', function() {
-     const quizzes = SDK.Quiz.getQuiz(this.value, (err, data) => {
+
+    $('#PlayQuizzes').on('change', function() {
+        const quizzes = SDK.Quiz.getQuiz(this.value, (err, data) => {
 
             if (err) {
                 console.log("Failed in getting course")
@@ -39,27 +40,43 @@ $(document).ready(() => {
                     props = ["quizId", "quizTitle", "courseId"];
                 $.each(data, function (i, quizTable) {
                     const tr = $('<tr>');
-                    $('<td>').html(quizTable['quizTitle']).appendTo(tr);
-
-
-                    //tr.append('<td>')
-                    $('<td>').html('<input type="button" data-quizId="'+quizTable['quizId']+'" name= "StartButton" value="Play quiz"/>').appendTo(tr);
+                    $('<td>').html(quizTable["quizTitle"]).appendTo(tr);
+                    $('<td>').html(quizTable["quizId"]).appendTo(tr);
                     tbody.append(tr);
+
+
 
                 })
 
-                $('input[name="StartButton"]').click(function() {
-                    var quizId = $(this).attr('data-quizId');
+                //Delete QUIZ
 
-                    location.href="http://localhost:63342/clientnew/Quiz.html?quizId=" + quizId;
+                $("#deleteQuiz-button").click(() => {
+
+                    const deleteQuizID = $("#inputDeleteQuiz").val();
+
+                    if (confirm("Are you sure you want to delete the quiz?"));
+                    SDK.Quiz.deleteQuiz(deleteQuizID,(err) => {
+
+                        if (err) {
+                            window.alert("Not removed")
+                        } else {
+                            window.alert("Quiz has been deleted")
+                            window.location.href = "Quizzes.html";
+
+                        }
+
+                    });
                 });
 
 
 
-            }
 
-     })
+        }
 
-  })
+
+
+        })
+
+    })
 
 });

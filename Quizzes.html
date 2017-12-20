@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <link rel="stylesheet" href="lib/css/bootstrap.css">
+    <link rel="stylesheet" href="css/main.css">
+
+    <meta charset="UTF-8">
+    <title>FML Quiz - PlayQuiz</title>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="row" id="nav-container"></div>
+
+    <div class="row">
+        <div class="col-lg-12">
+
+            <div class="jumbotron">
+
+
+                <!--- Admin buttons ---->
+
+
+                    <button style="margin-bottom: 40px" class="btn btn-success" data-toggle="modal" data-target="#CreateModal" data-whatever="@CreateAdmin">Create Quiz</button>
+                    <button style="margin-bottom: 40px" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" data-whatever="@delete">Delete Quiz</button>
+
+                <div class="page-header">
+                    <h2>Choose course</h2>
+                    <div id="load-test"></div>
+
+                    <div>
+                        <div class="form-group">
+                            <label class="control-label" for="PlayQuizzes"></label>
+                            <select id="PlayQuizzes" class="form-control">Choose a Quiz"</select>
+                        </div>
+
+                        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="quizModalLabel">
+                            <div class="modal-dialog modal-sm" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="ModalLabel">Delete Quiz</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form>
+                                            <div class="form-group">
+                                                <label class="control-label" for="inputDeleteQuiz">Quiz ID</label>
+                                                <input type="Text" class="form-control" id="inputDeleteQuiz" placeholder="User ID">
+                                            </div>
+
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-danger" id="deleteQuiz-button">Delete</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="quizTable" class="container">
+                            <h2>Select quiz to play</h2>
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Quiz</th>
+                                    <th>Quiz ID</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<footer class="footer">
+    <div class="container">
+        <p class="text-muted">2017 © All rights reserved - FML Quiz.</p>
+    </div>
+</footer>
+
+<script src="lib/js/jquery-3.2.1.js"></script>
+<script src="lib/js/bootstrap.js"></script>
+<script src="js/sdk.js"></script>
+<script src="js/Quizzes.js"></script>
+<script>
+    SDK.User.loadNav();
+</script>
+
+</body>
+</html>
+

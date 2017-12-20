@@ -242,6 +242,7 @@ const SDK = {
       loadNav: (cb) => {
           $("#nav-container").load("nav.html", () => {
               const currentUser = SDK.User.current();
+              console.log(currentUser);
               if (currentUser.userId !== null && currentUser.type == 1) {
                   $(".navbar-nav").html(`
               <li><a href="index.html">Home</a></li>
@@ -255,7 +256,7 @@ const SDK = {
              <li><a href="profil.html">Profile</a></li>
              <li><a href="users.html">Users</a></li>
              <li><a href="PlayQuiz.html">Play</a></li>
-             <li><a href="#">Create quiz</a></li>
+             <li><a href="Quizzes.html">Quizzes</a></li>
             
             
           `);
