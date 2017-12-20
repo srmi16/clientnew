@@ -43,7 +43,7 @@ $(document).ready(() => {
 
 
                     //tr.append('<td>')
-                    $('<td>').html('<input type="button" data-quizId="'+quizTable['quizId']+'" name= "StartButton" value="Play quiz"/>').appendTo(tr);
+                    $('<td>').html('<input type="button" data-quizId="'+quizTable['quizId']+'"style="margin-bottom: 5px" class="btn btn-success" name= "StartButton" value="Play quiz"/>').appendTo(tr);
                     tbody.append(tr);
 
                 })

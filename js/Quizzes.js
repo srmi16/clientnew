@@ -22,6 +22,7 @@ $(document).ready(() => {
                 el.textContent = opt.courseTitel;
                 el.value = opt.courseId;
                 select.appendChild(el)
+
             }
 
         }
@@ -42,6 +43,7 @@ $(document).ready(() => {
                     const tr = $('<tr>');
                     $('<td>').html(quizTable["quizTitle"]).appendTo(tr);
                     $('<td>').html(quizTable["quizId"]).appendTo(tr);
+                    $('<td>').html(quizTable["courseId"]).appendTo(tr);
                     tbody.append(tr);
 
 
