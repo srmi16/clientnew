@@ -26,24 +26,7 @@ const SDK = {
 
     },
 
-    Courses: {
 
-        getCourses: (cb) => {
-
-        SDK.request({
-        method: "GET",
-        url: "/courses"
-    }, (err, data) => {
-
-        if (err) return cb(err);
-
-        data = JSON.parse(data);
-
-        cb(null, data);
-    });
-},
-
-},
 
     Question: {
         create: (question, cb) => {
@@ -89,68 +72,55 @@ const SDK = {
     },
 
 
-  Quiz: {
-      create: (quiz, cb) => {
-          SDK.request({
-              method: "POST",
-              url: "/quiz",
-              data: {
-                  courseId: quiz.courseId,
-                  quizTitle: quiz.quizTitle
-              },
-          },
+    Quiz: {
 
-  (err, data) => {
+        getCourses: (cb) => {
+            SDK.request({method: "GET", url: "/courses"}, cb);
 
-              if(err) return cb(err);
-              data = JSON.parse(data);
-              SDK.Storage.persist("courseId", data.courseId);
-              SDK.Storage.persist("quizTitle", data.quizTitle);
-              SDK.Storage.persist("quizId", data.quizId);
+        },
 
-              cb(null, data);
-          })
-      }
-  },
+        addQuiz: (quizTitle, courseId, cb) => {
+            SDK.request({
+                url: "/quiz",
+                method: "POST",
+                data: {
+                    quizTitle: quizTitle,
+                    courseId: courseId
+                }
 
-    getQuiz: (courseId, cb) => {
-        SDK.request ({
-            url: "/quiz/" + courseId,
-            method: "GET"
-        }, (err, data) => {
-            if (err) return cb(err);
-            cb(null, data);
+            }, (err, data) => {
+                if (err) return cb(err);
+                cb(null, data);
+            });
+
+        },
+
+        getQuiz: (courseId, cb) => {
+            SDK.request({
+                url: "/quiz/" + courseId,
+                method: "GET"
+            }, (err, data) => {
+                if (err) return cb(err);
+                cb(null, data);
+            });
 
 
-        });
+        },
+
+        deleteQuiz: (id, cb) => {
+            SDK.request({
+                url: "/quiz/" + id,
+                method: "DELETE"
+
+            }, (err, data) => {
+                if (err) return cb(err);
+                cb(null, data);
+            });
+
+        }
+
+
     },
-
-  findAll: (id, cb) => {
-      SDK.request({
-          method: "GET",
-          url: ("/quiz/" + id),
-      },
-          (err, data) => {
-
-          if (err) return cb (err);
-
-          data = JSON.parse(data);
-
-          cb(null, data);
-      });
-  }  ,
-
-   delete: (id, cb) => {
-      SDK.request({
-          method: "DELETE",
-          url: "/quiz/" + id
-      },
-          (err, data) => {
-          if (err) return cb(err);
-
-          cb(null);
-      })
-   },
 
 
   User: {
