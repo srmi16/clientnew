@@ -42,16 +42,17 @@ $(document).ready(() => {
                     $('<td>').html(quizTable['quizTitle']).appendTo(tr);
 
 
-                    //tr.append('<td>')
+
+                    tr.append('<td>')
                     $('<td>').html('<input type="button" data-quizId="'+quizTable['quizId']+'"style="margin-bottom: 5px" class="btn btn-success" name= "StartButton" value="Play quiz"/>').appendTo(tr);
                     tbody.append(tr);
 
                 })
 
                 $('input[name="StartButton"]').click(function() {
-                    var quizId = $(this).attr('data-quizId');
+                   var quizId = $(this).attr('data-quizId');
 
-                    location.href="http://localhost:63342/clientnew/Quiz.html?quizId=" + quizId;
+                   location.href="http://localhost:63342/clientnew/Quiz.html?quizId=" + quizId;
                 });
 
 

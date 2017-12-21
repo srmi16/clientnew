@@ -31,15 +31,11 @@ const SDK = {
     Question: {
 
 
-        getQuestion: (quizId, question, cb) => {
+        getQuestion: (quizId, cb) => {
             SDK.request({
                 url: "/question/" + quizId,
                 method: "GET",
-                data: {
-                    quizId: question.quizId,
-                    questionTitle: question.questionTitle
 
-                },
 
 
             }, (err, data) => {
@@ -83,14 +79,14 @@ const SDK = {
             });
         },
 
-        create: (choice, cb) => {
+        create: (questionId, choiceTitle, answer, cb) => {
             SDK.request({
                 method: "POST",
                 url: "/choice",
                 data: {
-                    questionId: choice.questionId,
-                    choiceTitle: choice.choiceTitle,
-                    answer: choice.answer
+                    questionId: questionId,
+                    choiceTitle: choiceTitle,
+                    answer: answer
                 },
             },
                 (err, data) => {
