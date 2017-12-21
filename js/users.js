@@ -57,14 +57,14 @@ $(document).ready(() => {
 
     const deleteUserID = $("#inputDeleteUser").val();
 
-    if (confirm("Are you sure you want to delete" + deleteUserID + "?")) ;
+    if (confirm("Are you sure you want to delete?")) ;
     SDK.User.delete(deleteUserID, (err) => {
 
         if (err) {
             window.alert("Not removed")
         } else {
             window.alert("User has been removed")
-            window.location.href = "users.html";
+            location.reload();
 
         }
 

@@ -63,7 +63,7 @@ $(document).ready(() => {
                             window.alert("Not removed")
                         } else {
                             window.alert("Quiz has been deleted")
-                            window.location.href = "Quizzes.html";
+                            location.reload();
 
                         }
 

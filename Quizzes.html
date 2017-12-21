@@ -20,7 +20,7 @@
             <div class="jumbotron">
 
 
-                <!--- Admin buttons ---->
+                                <!--- Quiz buttons ---->
 
 
                     <button style="margin-bottom: 40px" class="btn btn-success" data-toggle="modal" data-target="#CreateModal" data-whatever="@CreateAdmin">Create Quiz</button>
@@ -34,32 +34,6 @@
                         <div class="form-group">
                             <label class="control-label" for="PlayQuizzes"></label>
                             <select id="PlayQuizzes" class="form-control">Choose a Quiz"</select>
-                        </div>
-
-
-                                            <!--- delete quiz modal ---->
-                        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="quizModalLabel">
-                            <div class="modal-dialog modal-sm" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                        <h4 class="modal-title" id="ModalLabel">Delete Quiz</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form>
-                                            <div class="form-group">
-                                                <label class="control-label" for="inputDeleteQuiz">Quiz ID</label>
-                                                <input type="Text" class="form-control" id="inputDeleteQuiz" placeholder="User ID">
-                                            </div>
-
-                                        </form>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-danger" id="deleteQuiz-button">Delete</button>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
 
                         <div id="quizTable" class="container">
@@ -79,6 +53,32 @@
                             </table>
                         </div>
 
+                    </div>
+                </div>
+
+
+                <!--- delete quiz modal ---->
+                <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="quizModalLabel">
+                    <div class="modal-dialog modal-sm" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="ModalLabel">Delete Quiz</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="form-group">
+                                        <label class="control-label" for="inputDeleteQuiz">Quiz ID</label>
+                                        <input type="Text" class="form-control" id="inputDeleteQuiz" placeholder="User ID">
+                                    </div>
+
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-danger" id="deleteQuiz-button">Delete</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 

@@ -6,11 +6,11 @@ $(document).ready(() => {
 
 
     $(".page-header").html(`
-    <h1>Hi, ${currentUser.firstName} ${currentUser.lastName}</h1>
+    <h2>Hi, ${currentUser.firstName} ${currentUser.lastName}</h2>
   `);
 
     $(".img-container").html(`
-    <img src="${currentUser.avatarUrl}" height="150"/>
+    <img src='https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg' height="170"/>
   `);
 
     $(".profile-info").html(`

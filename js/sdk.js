@@ -29,6 +29,26 @@ const SDK = {
 
 
     Question: {
+
+
+        getQuestion: (quizId, question, cb) => {
+            SDK.request({
+                url: "/question/" + quizId,
+                method: "GET",
+                data: {
+                    quizId: question.quizId,
+                    questionTitle: question.questionTitle
+
+                },
+
+
+            }, (err, data) => {
+                if (err) return cb(err);
+                cb(null, data);
+            });
+
+
+        },
         create: (question, cb) => {
             SDK.request({
                 method: "POST",
@@ -52,6 +72,17 @@ const SDK = {
     },
 
     Choice: {
+
+        getChoices: (questionId, cb) => {
+            SDK.request({
+                url: "/choice/" + questionId,
+                method: "GET"
+            }, (err, data) => {
+                if (err) return cb(err);
+                cb(null, data);
+            });
+        },
+
         create: (choice, cb) => {
             SDK.request({
                 method: "POST",

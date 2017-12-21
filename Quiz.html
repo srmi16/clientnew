@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <link rel="stylesheet" href="lib/css/bootstrap.css">
     <link rel="stylesheet" href="css/main.css">
 
-
     <meta charset="UTF-8">
-    <title>FML Quiz - Quiz</title>
+    <title>FML Quiz</title>
+
 </head>
 <body>
 
@@ -15,27 +16,26 @@
     <div class="row" id="nav-container"></div>
 
     <div class="row">
-        <div class="col-lg-12">
-            <div class="jumbotron">
-                <table class ="tabel">
-                    <thead>
-                        <tr>
-                            <th di="header"></th>
-                            <th></th>
-                        </tr>
-                    </thead>
+        <div class="col-lg-6">
+            <div class="page-header">
+                <h1 id="QuestionText"></h1>
+                <div id="ChoiceContainer">
+
+                </div>
+
+                <div id="load-test"></div>
+            </div>
+
+            <div class="form-group">
+                <input type = "button" value="Next Question" id="NextQuestion">
+            </div>
 
 
-                <tbody id="questionsView">
 
-                </tbody>
-
-
-            </table>
-              <button class="btn btn-success" id="Done">Done</button>
         </div>
+
+
     </div>
-</div>
 </div>
 
 <footer class="footer">
@@ -53,4 +53,3 @@
 </script>
 
 </body>
-</html>
