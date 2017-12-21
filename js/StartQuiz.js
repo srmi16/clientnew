@@ -52,10 +52,10 @@ $(document).ready(() => {
      }
 
     });
-              //Next Question
+
     $("#Continue").click(function () {
-        if(!$('input [name=Choices]:checked').val()){
-            window.alert("Choose an answer");
+        if(!$('input[name=Choices]:checked').val()){
+            window.alert("Choose a answer");
             return;
 
         }
